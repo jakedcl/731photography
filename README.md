@@ -14,7 +14,7 @@ Live at [thomaslurker.com](https://thomaslurker.com).
 - `/about` is written in Sanity. There are also shipping, privacy and terms pages.
 - Photos, print sizes and prices, and site settings are Sanity documents. The image hotspot drives the crop, and turning off `forSale` keeps a photo in the gallery without a buy button.
 
-Thomas edits everything from Sanity Studio, which is embedded in the site at `/studio`, so the Studio and the checkout flow are kept simple. A framed or wall-art configurator is not built.
+Thomas edits everything from Sanity Studio, which is embedded in the site at `/admin` (`/studio` redirects there), so the Studio and the checkout flow are kept simple. A framed or wall-art configurator is not built.
 
 ## Stack
 

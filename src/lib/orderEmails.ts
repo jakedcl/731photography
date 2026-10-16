@@ -106,7 +106,7 @@ export function buildOwnerOrderEmail(input: OrderEmailInput) {
           ? `Check the Prodigi ${escapeHtml(input.fulfillment.environment)} dashboard for production status.`
           : `Fulfill manually or fix Prodigi, then replay the Stripe webhook.`
       }
-      <a href="${escapeHtml(siteUrl)}/studio" style="color:#1c1917;">Open Studio</a>
+      <a href="${escapeHtml(siteUrl)}/admin" style="color:#1c1917;">Open Studio</a>
     </p>`;
 
   return {
