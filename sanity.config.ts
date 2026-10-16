@@ -15,4 +15,6 @@ export default defineConfig({
   dataset,
   plugins: [structureTool({ structure })],
   schema: { types: schemaTypes },
+  // Floating "What's new" card (bottom-left) and the announcement dialog.
+  announcements: { enabled: false },
 });
