@@ -41,7 +41,6 @@ export function SanityImage({
       : urlFor(image).width(width).height(aspect).fit("crop").quality(82).url();
 
   const blur = image.asset.metadata?.lqip;
-  const resolvedSizes = sizes ?? (fill ? "100vw" : undefined);
 
   if (fill) {
     return (
@@ -51,7 +50,7 @@ export function SanityImage({
         fill
         className={className}
         priority={priority}
-        sizes={resolvedSizes}
+        sizes={sizes}
         placeholder={blur ? "blur" : "empty"}
         blurDataURL={blur}
       />
@@ -66,7 +65,7 @@ export function SanityImage({
       height={aspect}
       className={className}
       priority={priority}
-      sizes={resolvedSizes}
+      sizes={sizes}
       placeholder={blur ? "blur" : "empty"}
       blurDataURL={blur}
     />

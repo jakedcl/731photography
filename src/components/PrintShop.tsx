@@ -74,7 +74,7 @@ export function PrintShop({ photo, sizes, canceled }: Props) {
             height={previewH}
             priority
             className="h-auto max-h-[min(85vh,920px)] w-full object-contain"
-            sizes="(max-width: 768px) 100vw, 60vw"
+            sizes="(max-width: 767px) 100vw, (max-width: 1400px) 64vw, 900px"
             placeholder={blur ? "blur" : "empty"}
             blurDataURL={blur}
           />
