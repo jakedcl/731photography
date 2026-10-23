@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { BuyPrint } from "@/components/BuyPrint";
+import { SanityNextImage } from "@/components/SanityNextImage";
 import {
   getCatalogSize,
   pricedSizesForShape,
@@ -63,7 +63,7 @@ export function PrintShop({ photo, sizes, canceled }: Props) {
           Print preview · {sizeLabel}
         </p>
         {previewSrc ? (
-          <Image
+          <SanityNextImage
             src={previewSrc}
             alt={
               photo.title

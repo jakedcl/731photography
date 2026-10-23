@@ -37,6 +37,10 @@ Open http://localhost:3000. `.env.local` needs:
 
 Other scripts: `npm run build`, `npm run start` and `npm run lint`.
 
+### Images
+
+Sanity photos (`cdn.sanity.io`) use a custom `next/image` loader (`src/lib/sanityImageLoader.ts`) so resizing and format negotiation happen on Sanity’s CDN. They are not sent through Vercel Image Optimization, which keeps the team’s shared transformation quota for any local or non-Sanity assets.
+
 ## Where things are
 
 - `src/app/` pages and API routes (`api/checkout`, `api/webhooks/stripe`, `api/webhooks/prodigi`, `api/event-inquiry`)

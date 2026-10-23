@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import { SanityNextImage } from "@/components/SanityNextImage";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityImage as SanityImageType } from "@/sanity/lib/types";
 
@@ -42,16 +41,17 @@ export function SanityImage({
       : urlFor(image).width(width).height(aspect).fit("crop").quality(82).url();
 
   const blur = image.asset.metadata?.lqip;
+  const resolvedSizes = sizes ?? (fill ? "100vw" : undefined);
 
   if (fill) {
     return (
-      <Image
+      <SanityNextImage
         src={src}
         alt={resolvedAlt}
         fill
         className={className}
         priority={priority}
-        sizes={sizes}
+        sizes={resolvedSizes}
         placeholder={blur ? "blur" : "empty"}
         blurDataURL={blur}
       />
@@ -59,14 +59,14 @@ export function SanityImage({
   }
 
   return (
-    <Image
+    <SanityNextImage
       src={src}
       alt={resolvedAlt}
       width={width}
       height={aspect}
       className={className}
       priority={priority}
-      sizes={sizes}
+      sizes={resolvedSizes}
       placeholder={blur ? "blur" : "empty"}
       blurDataURL={blur}
     />
