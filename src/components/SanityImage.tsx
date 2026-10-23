@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import { SanityNextImage } from "@/components/SanityNextImage";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityImage as SanityImageType } from "@/sanity/lib/types";
 
@@ -45,7 +44,7 @@ export function SanityImage({
 
   if (fill) {
     return (
-      <Image
+      <SanityNextImage
         src={src}
         alt={resolvedAlt}
         fill
@@ -59,7 +58,7 @@ export function SanityImage({
   }
 
   return (
-    <Image
+    <SanityNextImage
       src={src}
       alt={resolvedAlt}
       width={width}

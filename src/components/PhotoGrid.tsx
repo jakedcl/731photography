@@ -108,7 +108,7 @@ function PrintCard({
           natural
           priority={priority}
           className="h-auto w-full transition duration-700 ease-out group-hover:scale-[1.025]"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
         />
       ) : (
         <div className="aspect-[4/5] bg-stone-800" />
