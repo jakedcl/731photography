@@ -95,7 +95,7 @@ export function PrintShapeInput(props: StringInputProps) {
     assetId && hintForAsset?.assetId === assetId ? hintForAsset.text : null;
 
   return (
-    <Stack space={3}>
+    <Stack gap={3}>
       {renderDefault(props)}
       {hint ? (
         <Text size={1} muted>
