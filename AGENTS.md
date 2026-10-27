@@ -2,6 +2,10 @@
 
 Print shop + event-booking site for photographer Thomas Lurker. Live: thomaslurker.com. Buyers pick size and finish, pay with Stripe, and Prodigi prints and ships.
 
+## Dev framework
+
+This repo follows Jake's dev framework: [jakedcl/dev-framework](https://github.com/jakedcl/dev-framework) (start at its `AGENTS.md`). The framework is the source of truth; if anything in this file conflicts with it, the framework wins.
+
 This Next.js version has breaking changes; check node_modules/next/dist/docs before using APIs.
 
 ## Stack (from package.json)
