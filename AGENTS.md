@@ -24,7 +24,7 @@ Next.js 16.3.0 App Router, React 19.2.8, Tailwind 4, Sanity ^6.9 + next-sanity ^
 `npm run dev`, `npm run build`, `npm run lint`. Copy `.env.example` → `.env.local`. Test webhooks with `stripe listen --forward-to localhost:3000/api/webhooks/stripe`.
 
 ## Content
-Sanity: project id comes from `NEXT_PUBLIC_SANITY_PROJECT_ID` (not hardcoded), dataset `production`, studioHost `731photography`. Photos, print sizes/prices, site settings and About copy live in Sanity. Photo hotspot drives the print crop; `forSale: false` keeps a photo in the gallery without a buy button.
+Sanity: project id comes from `NEXT_PUBLIC_SANITY_PROJECT_ID` (not hardcoded), dataset `production`, Studio embedded at `/admin` (no hosted *.sanity.studio). Photos, print sizes/prices, site settings and About copy live in Sanity. Photo hotspot drives the print crop; `forSale: false` keeps a photo in the gallery without a buy button.
 
 ## Gotchas
 - Fulfillment runs from the Stripe webhook: it creates the Prodigi order and sends buyer + Thomas emails. Prodigi callbacks send shipped/cancelled emails.
