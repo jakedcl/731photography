@@ -10,7 +10,7 @@ import { structure } from "./src/sanity/structure";
 export default defineConfig({
   name: "731photography",
   title: "731photography",
-  basePath: "/admin",
+  basePath: "/studio",
   projectId,
   dataset,
   plugins: [structureTool({ structure })],

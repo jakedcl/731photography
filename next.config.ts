@@ -8,14 +8,14 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/studio",
-        destination: "/admin",
-        permanent: true,
+        source: "/admin",
+        destination: "/studio",
+        permanent: false,
       },
       {
-        source: "/studio/:path*",
-        destination: "/admin/:path*",
-        permanent: true,
+        source: "/admin/:path*",
+        destination: "/studio/:path*",
+        permanent: false,
       },
     ];
   },
