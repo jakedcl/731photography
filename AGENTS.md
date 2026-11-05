@@ -15,7 +15,7 @@ Next.js 16.3.0 App Router, React 19.2.8, Tailwind 4, Sanity ^6.9 + next-sanity ^
 
 ## Layout
 - `src/app/(site)/` pages: prints, prints/[slug], prints/success, book, contact, about, shipping, privacy, terms
-- `src/app/admin/[[...tool]]` embedded Sanity Studio (`/studio` redirects to `/admin`)
+- `src/app/studio/[[...tool]]` embedded Sanity Studio (`/admin` redirects to `/studio`)
 - `src/app/api/` checkout, event-inquiry, webhooks/stripe, webhooks/prodigi
 - `src/lib/` printCatalog.ts (size+finish → Prodigi SKU), stripe, prodigi, fulfillPrintOrder, email templates, orderNumber
 - `src/sanity/` env.ts, schemaTypes (photo, printSizes, siteSettings), queries, structure
@@ -24,7 +24,7 @@ Next.js 16.3.0 App Router, React 19.2.8, Tailwind 4, Sanity ^6.9 + next-sanity ^
 `npm run dev`, `npm run build`, `npm run lint`. Copy `.env.example` → `.env.local`. Test webhooks with `stripe listen --forward-to localhost:3000/api/webhooks/stripe`.
 
 ## Content
-Sanity: project id comes from `NEXT_PUBLIC_SANITY_PROJECT_ID` (not hardcoded), dataset `production`, Studio embedded at `/admin` (no hosted *.sanity.studio). Photos, print sizes/prices, site settings and About copy live in Sanity. Photo hotspot drives the print crop; `forSale: false` keeps a photo in the gallery without a buy button.
+Sanity: project id comes from `NEXT_PUBLIC_SANITY_PROJECT_ID` (not hardcoded), dataset `production`, Studio embedded at `/studio` (`/admin` redirects; no hosted *.sanity.studio). Photos, print sizes/prices, site settings and About copy live in Sanity. Photo hotspot drives the print crop; `forSale: false` keeps a photo in the gallery without a buy button.
 
 ## Gotchas
 - Fulfillment runs from the Stripe webhook: it creates the Prodigi order and sends buyer + Thomas emails. Prodigi callbacks send shipped/cancelled emails.
