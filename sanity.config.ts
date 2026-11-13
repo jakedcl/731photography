@@ -17,4 +17,7 @@ export default defineConfig({
   schema: { types: schemaTypes },
   // Floating "What's new" card (bottom-left) and the announcement dialog.
   announcements: { enabled: false },
+  releases: { enabled: false },
+  scheduledDrafts: { enabled: false },
+  tasks: { enabled: false },
 });
