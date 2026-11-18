@@ -57,7 +57,10 @@ export function PrintShop({ photo, sizes, canceled }: Props) {
   const blur = photo.image?.asset?.metadata?.lqip;
 
   return (
-    <main className="mx-auto grid w-full max-w-[1400px] flex-1 items-start gap-10 px-5 py-10 md:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.75fr)] md:gap-14 md:px-8 md:py-16 lg:gap-20">
+    <main
+      id="main"
+      className="mx-auto grid w-full max-w-[1400px] flex-1 items-start gap-10 px-5 py-10 md:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.75fr)] md:gap-14 md:px-8 md:py-16 lg:gap-20"
+    >
       <div className="w-full min-w-0">
         <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-stone-500">
           Print preview · {sizeLabel}

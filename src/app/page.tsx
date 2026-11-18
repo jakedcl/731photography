@@ -126,6 +126,7 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <main id="main">
       <section className="relative min-h-[100svh] overflow-hidden bg-stone-900 text-white">
         <HeroCarousel
           photos={heroPhotos}
@@ -190,6 +191,7 @@ export default async function HomePage() {
           <PhotoGrid photos={preview} fromPrice={fromPrice} />
         </div>
       </section>
+      </main>
 
       <SiteFooter siteTitle={site.siteTitle} brandName={site.brandName} />
     </>

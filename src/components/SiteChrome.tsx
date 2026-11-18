@@ -5,6 +5,17 @@ const links = [
   { href: "/book", label: "Book an event", shortLabel: "Book" },
 ] as const;
 
+const skipLinkClass =
+  "sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-5 focus:z-[100] focus:rounded-sm focus:bg-white focus:px-4 focus:py-3 focus:text-sm focus:font-medium focus:text-stone-900 focus:shadow-md focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-stone-900";
+
+export function SkipToContent() {
+  return (
+    <a href="#main" className={skipLinkClass}>
+      Skip to content
+    </a>
+  );
+}
+
 function NavLabel({
   link,
 }: {
@@ -43,6 +54,7 @@ export function SiteHeader({
           : "border-b border-stone-200/80 bg-[var(--paper)]"
       }
     >
+      <SkipToContent />
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-5 md:px-8">
         <Link href="/" className="group min-w-0">
           <span

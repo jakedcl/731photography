@@ -15,7 +15,10 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="mx-auto flex min-h-[70vh] w-full max-w-2xl flex-col justify-center px-5 py-24 md:px-8">
+    <main
+      id="main"
+      className="mx-auto flex min-h-[70vh] w-full max-w-2xl flex-col justify-center px-5 py-24 md:px-8"
+    >
       <p className="text-xs font-medium uppercase tracking-[0.22em] text-stone-500">
         Something went wrong
       </p>
