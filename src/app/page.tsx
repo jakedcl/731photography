@@ -13,6 +13,7 @@ import {
   PRINT_SIZES_QUERY,
   SITE_SETTINGS_QUERY,
 } from "@/sanity/lib/queries";
+import { defaultDescription, getSiteUrl, pageMetadata } from "@/lib/metadata";
 import {
   startingPrice,
   type PhotoListItem,
@@ -20,31 +21,55 @@ import {
   type SiteSettings,
 } from "@/sanity/lib/types";
 
+const homeTitle = "Thomas Lurker | 731photography";
+
 export async function generateMetadata(): Promise<Metadata> {
+  const siteUrl = getSiteUrl();
   const { data } = await sanityFetch({
     query: FEATURED_PHOTO_QUERY,
     stega: false,
   });
   const featured = data as PhotoListItem | null;
 
-  if (!featured?.image?.asset) return {};
+  const base = pageMetadata({
+    path: "/",
+    title: homeTitle,
+    description: defaultDescription,
+    absoluteTitle: true,
+  });
 
-  const url = urlFor(featured.image).width(1200).height(630).fit("crop").url();
+  if (!featured?.image?.asset) return base;
+
+  const imageUrl = urlFor(featured.image)
+    .width(1200)
+    .height(630)
+    .fit("crop")
+    .url();
+  const images = [
+    {
+      url: imageUrl,
+      width: 1200,
+      height: 630,
+      alt: featured.title || "Thomas Lurker photography",
+    },
+  ];
 
   return {
+    ...base,
     openGraph: {
-      images: [
-        {
-          url,
-          width: 1200,
-          height: 630,
-          alt: featured.title || "Thomas Lurker photography",
-        },
-      ],
+      ...base.openGraph,
+      type: "website",
+      url: siteUrl,
+      title: homeTitle,
+      description: defaultDescription,
+      images,
     },
     twitter: {
+      ...base.twitter,
       card: "summary_large_image",
-      images: [url],
+      title: homeTitle,
+      description: defaultDescription,
+      images: images.map((image) => image.url),
     },
   };
 }
@@ -79,9 +104,7 @@ export default async function HomePage() {
     ((sizesData as { sizes?: PrintSize[] } | null)?.sizes || []) as PrintSize[],
   );
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "https://thomaslurker.com";
+  const siteUrl = getSiteUrl();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -103,6 +126,7 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <main id="main">
       <section className="relative min-h-[100svh] overflow-hidden bg-stone-900 text-white">
         <HeroCarousel
           photos={heroPhotos}
@@ -167,6 +191,7 @@ export default async function HomePage() {
           <PhotoGrid photos={preview} fromPrice={fromPrice} />
         </div>
       </section>
+      </main>
 
       <SiteFooter siteTitle={site.siteTitle} brandName={site.brandName} />
     </>

@@ -3,24 +3,29 @@ import Link from "next/link";
 
 import { ContactForm } from "@/components/ContactForm";
 import { parseInquiryTopic } from "@/lib/inquiry";
+import { pageMetadata } from "@/lib/metadata";
 
 type Props = {
   searchParams: Promise<{ topic?: string }>;
 };
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  searchParams,
+}: Props): Promise<Metadata> {
   const topic = parseInquiryTopic((await searchParams).topic);
   if (topic === "order") {
-    return {
+    return pageMetadata({
+      path: "/contact",
       title: "Order questions",
       description:
         "Questions about a print order from Thomas Lurker / 731photography.",
-    };
+    });
   }
-  return {
+  return pageMetadata({
+    path: "/contact",
     title: "Contact",
     description: "Get in touch with Thomas Lurker / 731photography.",
-  };
+  });
 }
 
 export default async function ContactPage({ searchParams }: Props) {
@@ -28,7 +33,10 @@ export default async function ContactPage({ searchParams }: Props) {
   const topic = raw === "other" ? "other" : "order";
 
   return (
-    <main className="mx-auto grid w-full max-w-6xl flex-1 gap-12 px-5 py-16 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] md:items-start md:gap-20 md:px-8 md:py-24">
+    <main
+      id="main"
+      className="mx-auto grid w-full max-w-6xl flex-1 gap-12 px-5 py-16 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] md:items-start md:gap-20 md:px-8 md:py-24"
+    >
       <div className="md:sticky md:top-12">
         <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-stone-500">
           Contact

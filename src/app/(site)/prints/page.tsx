@@ -1,6 +1,5 @@
-import type { Metadata } from "next";
-
 import { PhotoGrid } from "@/components/PhotoGrid";
+import { pageMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/live";
 import { PHOTOS_QUERY, PRINT_SIZES_QUERY } from "@/sanity/lib/queries";
 import {
@@ -9,10 +8,11 @@ import {
   type PrintSize,
 } from "@/sanity/lib/types";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
+  path: "/prints",
   title: "Prints",
   description: "Fine art prints by Thomas Lurker / 731photography.",
-};
+});
 
 export default async function PrintsPage() {
   const [{ data: photosData }, { data: sizesData }] = await Promise.all([
@@ -26,7 +26,7 @@ export default async function PrintsPage() {
   const fromPrice = startingPrice(sizes);
 
   return (
-    <main className="w-full flex-1">
+    <main id="main" className="w-full flex-1">
       <header className="border-b border-stone-200/80">
         <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-8 px-5 py-12 md:flex-row md:items-end md:justify-between md:gap-16 md:px-8 md:py-16">
           <div className="max-w-xl">
