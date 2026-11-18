@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     stega: false,
   });
   const photo = data as PhotoDetail | null;
-  if (!photo) return { title: "Print" };
+  if (!photo) notFound();
 
   const title = photo.title || "Print";
   const description =
