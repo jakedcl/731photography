@@ -1,14 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+  path: "/privacy",
   title: "Privacy",
   description: "How 731photography / Thomas Lurker handles your information.",
-};
+});
 
 export default function PrivacyPage() {
   return (
-    <main className="mx-auto w-full max-w-3xl px-5 py-14 md:px-8 md:py-24">
+    <main id="main" className="mx-auto w-full max-w-3xl px-5 py-14 md:px-8 md:py-24">
       <h1 className="text-4xl font-semibold tracking-tight text-stone-900 md:text-5xl">
         Privacy
       </h1>

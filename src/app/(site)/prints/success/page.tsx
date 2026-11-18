@@ -1,13 +1,15 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { getStripe } from "@/lib/stripe";
+import { pageMetadata } from "@/lib/metadata";
 import { formatPrice } from "@/sanity/lib/types";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
+  path: "/prints/success",
   title: "Order confirmed",
+  description: "Your print order from Thomas Lurker / 731photography.",
   robots: { index: false, follow: false },
-};
+});
 
 type Props = {
   searchParams: Promise<{ session_id?: string }>;
@@ -44,7 +46,7 @@ export default async function PrintSuccessPage({ searchParams }: Props) {
   const spec = [sizeLabel, finishLabel].filter(Boolean).join(" · ");
 
   return (
-    <main className="mx-auto w-full max-w-2xl px-5 py-20 md:px-8 md:py-28">
+    <main id="main" className="mx-auto w-full max-w-2xl px-5 py-20 md:px-8 md:py-28">
       <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-stone-500">
         Order confirmed
       </p>

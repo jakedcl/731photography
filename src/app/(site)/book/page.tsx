@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { EventInquiryForm } from "@/components/EventInquiryForm";
 import { parseInquiryTopic } from "@/lib/inquiry";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
+  path: "/book",
   title: "Book an event",
   description:
     "Inquire about event photography with Thomas Lurker / 731photography.",
-};
+});
 
 type Props = {
   searchParams: Promise<{ topic?: string }>;
@@ -22,7 +23,10 @@ export default async function BookPage({ searchParams }: Props) {
   }
 
   return (
-    <main className="mx-auto grid w-full max-w-6xl flex-1 gap-12 px-5 py-16 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] md:items-start md:gap-20 md:px-8 md:py-24">
+    <main
+      id="main"
+      className="mx-auto grid w-full max-w-6xl flex-1 gap-12 px-5 py-16 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] md:items-start md:gap-20 md:px-8 md:py-24"
+    >
       <div className="md:sticky md:top-12">
         <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-stone-500">
           Events

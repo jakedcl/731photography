@@ -1,21 +1,22 @@
-import type { Metadata } from "next";
+import Link from "next/link";
 
+import { pageMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/live";
 import { SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 import type { SiteSettings } from "@/sanity/lib/types";
-import Link from "next/link";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
+  path: "/about",
   title: "About",
   description: "About Thomas Lurker and 731photography.",
-};
+});
 
 export default async function AboutPage() {
   const { data } = await sanityFetch({ query: SITE_SETTINGS_QUERY });
   const site = (data || {}) as SiteSettings;
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-5 py-14 md:px-8 md:py-24">
+    <main id="main" className="mx-auto w-full max-w-3xl px-5 py-14 md:px-8 md:py-24">
       <p className="text-xs font-medium uppercase tracking-[0.22em] text-stone-500">
         {site.brandName || "731photography"}
       </p>

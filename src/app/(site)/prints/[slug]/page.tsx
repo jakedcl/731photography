@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 
 import { PhotoGrid } from "@/components/PhotoGrid";
 import { PrintShop } from "@/components/PrintShop";
+import { pageMetadata } from "@/lib/metadata";
 import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import {
   PHOTO_BY_SLUG_QUERY,
@@ -45,10 +47,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
   const photo = data as PhotoDetail | null;
   if (!photo) return { title: "Print" };
-  return {
-    title: photo.title,
-    description: photo.caption || `${photo.title} — print by Thomas Lurker`,
-  };
+
+  const title = photo.title || "Print";
+  const description =
+    photo.caption || `${photo.title} — print by Thomas Lurker`;
+  const path = `/prints/${slug}`;
+  const images = photo.image?.asset
+    ? [
+        {
+          url: urlFor(photo.image).width(1200).height(630).fit("crop").url(),
+          width: 1200,
+          height: 630,
+          alt: photo.title || "Print by Thomas Lurker",
+        },
+      ]
+    : undefined;
+
+  return pageMetadata({ path, title, description, images });
 }
 
 export default async function PrintDetailPage({ params, searchParams }: Props) {
