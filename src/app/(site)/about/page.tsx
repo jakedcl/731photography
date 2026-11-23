@@ -3,8 +3,7 @@ import Link from "next/link";
 import { pageMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/live";
 import { SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
-import type { SiteSettings } from "@/sanity/lib/types";
-
+import { emptySiteSettings } from "@/sanity/lib/types";
 export const metadata = pageMetadata({
   path: "/about",
   title: "About",
@@ -13,7 +12,7 @@ export const metadata = pageMetadata({
 
 export default async function AboutPage() {
   const { data } = await sanityFetch({ query: SITE_SETTINGS_QUERY });
-  const site = (data || {}) as SiteSettings;
+  const site = data ?? emptySiteSettings;
 
   return (
     <main id="main" className="mx-auto w-full max-w-3xl px-5 py-14 md:px-8 md:py-24">
@@ -30,7 +29,7 @@ export default async function AboutPage() {
         )
           .split(/\n+/)
           .filter(Boolean)
-          .map((paragraph) => (
+          .map((paragraph: string) => (
             <p key={paragraph.slice(0, 24)}>{paragraph}</p>
           ))}
       </div>

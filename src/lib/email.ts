@@ -4,9 +4,7 @@ import { client } from "@/sanity/lib/client";
 import { SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 
 export async function getInquiryEmail() {
-  const settings = await client.fetch<{ inquiryEmail?: string } | null>(
-    SITE_SETTINGS_QUERY,
-  );
+  const settings = await client.fetch(SITE_SETTINGS_QUERY);
 
   return (
     settings?.inquiryEmail?.trim() ||

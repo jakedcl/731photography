@@ -13,7 +13,6 @@ import {
   PHOTO_BY_SLUG_QUERY,
   PRINT_SIZES_QUERY,
 } from "@/sanity/lib/queries";
-import type { PhotoDetail, PrintSize } from "@/sanity/lib/types";
 
 export const runtime = "nodejs";
 
@@ -50,8 +49,8 @@ export async function POST(request: Request) {
   }
 
   const [photo, sizesDoc] = await Promise.all([
-    client.fetch<PhotoDetail | null>(PHOTO_BY_SLUG_QUERY, { slug }),
-    client.fetch<{ sizes?: PrintSize[] } | null>(PRINT_SIZES_QUERY),
+    client.fetch(PHOTO_BY_SLUG_QUERY, { slug }),
+    client.fetch(PRINT_SIZES_QUERY),
   ]);
 
   if (!photo || photo.forSale === false) {

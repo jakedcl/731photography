@@ -21,6 +21,8 @@ jobs:
           node-version: "24"
           cache: npm
       - run: npm ci
+      - run: npm run typegen
+      - run: git diff --exit-code schema.json src/sanity/types.ts
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run build

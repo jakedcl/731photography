@@ -2,11 +2,7 @@ import { PhotoGrid } from "@/components/PhotoGrid";
 import { pageMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/live";
 import { PHOTOS_QUERY, PRINT_SIZES_QUERY } from "@/sanity/lib/queries";
-import {
-  startingPrice,
-  type PhotoListItem,
-  type PrintSize,
-} from "@/sanity/lib/types";
+import { startingPrice, type PhotoListItem } from "@/sanity/lib/types";
 
 export const metadata = pageMetadata({
   path: "/prints",
@@ -20,9 +16,8 @@ export default async function PrintsPage() {
     sanityFetch({ query: PRINT_SIZES_QUERY }),
   ]);
 
-  const photos = (photosData || []) as PhotoListItem[];
-  const sizes = ((sizesData as { sizes?: PrintSize[] } | null)?.sizes ||
-    []) as PrintSize[];
+  const photos = photosData ?? [];
+  const sizes = sizesData?.sizes ?? [];
   const fromPrice = startingPrice(sizes);
 
   return (
@@ -53,7 +48,11 @@ export default async function PrintsPage() {
       </header>
 
       <div className="mx-auto w-full max-w-[1400px] px-5 py-8 md:px-8 md:py-12">
-        <PhotoGrid photos={photos} fromPrice={fromPrice} lead />
+        <PhotoGrid
+          photos={photos as PhotoListItem[]}
+          fromPrice={fromPrice}
+          lead
+        />
       </div>
     </main>
   );

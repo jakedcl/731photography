@@ -1,5 +1,7 @@
 import { defineQuery } from "next-sanity";
 
+import "@/sanity/types";
+
 const imageFields = /* groq */ `
   asset->{
     _id,

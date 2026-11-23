@@ -7,8 +7,8 @@ import type { SanityImage as SanityImageType } from "@/sanity/lib/types";
 
 type HeroPhoto = {
   _id: string;
-  title?: string;
-  image?: SanityImageType;
+  title?: string | null;
+  image?: SanityImageType | null;
 };
 
 const INTERVAL_MS = 5000;

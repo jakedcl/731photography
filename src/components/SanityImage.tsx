@@ -52,7 +52,7 @@ export function SanityImage({
         priority={priority}
         sizes={sizes}
         placeholder={blur ? "blur" : "empty"}
-        blurDataURL={blur}
+        blurDataURL={blur ?? undefined}
       />
     );
   }
@@ -67,7 +67,7 @@ export function SanityImage({
       priority={priority}
       sizes={sizes}
       placeholder={blur ? "blur" : "empty"}
-      blurDataURL={blur}
+      blurDataURL={blur ?? undefined}
     />
   );
 }

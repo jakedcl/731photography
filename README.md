@@ -35,7 +35,17 @@ Open http://localhost:3000. `.env.local` needs:
 - `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` and `STRIPE_WEBHOOK_SECRET`. To test checkout locally, forward webhooks with `stripe listen --forward-to localhost:3000/api/webhooks/stripe`
 - `PRODIGI_API_KEY`, and `PRODIGI_ENV` set to `sandbox` until orders should be real
 
-Other scripts: `npm run build`, `npm run start` and `npm run lint`.
+Other scripts: `npm run build`, `npm run start`, `npm run lint`, and `npm run typecheck`.
+
+### Sanity types
+
+GROQ query result types are generated with [Sanity TypeGen](https://www.sanity.io/docs/sanity-typegen). After changing schemas under `src/sanity/schemaTypes` or queries in `src/sanity/lib/queries.ts`, run:
+
+```sh
+npm run typegen
+```
+
+That refreshes `schema.json` and `src/sanity/types.ts` (committed so CI and editors stay in sync).
 
 ### Images
 
