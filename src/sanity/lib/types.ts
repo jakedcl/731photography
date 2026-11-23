@@ -1,50 +1,28 @@
-export type SanityImage = {
-  asset?: {
-    _id?: string;
-    url?: string;
-    metadata?: {
-      lqip?: string;
-      dimensions?: { width?: number; height?: number };
-    };
-  };
-  alt?: string;
-  hotspot?: unknown;
-  crop?: unknown;
+import type {
+  PHOTO_BY_SLUG_QUERY_RESULT,
+  PHOTOS_QUERY_RESULT,
+  PRINT_SIZES_QUERY_RESULT,
+  SITE_SETTINGS_QUERY_RESULT,
+} from "@/sanity/types";
+
+export type SiteSettings = NonNullable<SITE_SETTINGS_QUERY_RESULT>;
+export type PhotoListItem = PHOTOS_QUERY_RESULT[number];
+export type PhotoDetail = NonNullable<PHOTO_BY_SLUG_QUERY_RESULT>;
+export type PrintSize = NonNullable<
+  NonNullable<PRINT_SIZES_QUERY_RESULT>["sizes"]
+>[number];
+export type SanityImage = NonNullable<PhotoListItem["image"]>;
+export type PrintShape = NonNullable<PhotoListItem["printShape"]>;
+
+export const emptySiteSettings: SiteSettings = {
+  siteTitle: null,
+  brandName: null,
+  tagline: null,
+  about: null,
+  inquiryEmail: null,
 };
 
-export type SiteSettings = {
-  siteTitle?: string;
-  brandName?: string;
-  tagline?: string;
-  about?: string;
-  inquiryEmail?: string;
-};
-
-export type PrintSize = {
-  _key: string;
-  label?: string;
-  sku?: string;
-  priceCents?: number;
-  prodigiSku?: string;
-};
-
-export type PrintShape = "portrait" | "landscape" | "panoramic";
-
-export type PhotoListItem = {
-  _id: string;
-  title?: string;
-  slug?: string;
-  caption?: string;
-  forSale?: boolean;
-  featured?: boolean;
-  sortOrder?: number;
-  printShape?: PrintShape | string;
-  image?: SanityImage;
-};
-
-export type PhotoDetail = PhotoListItem;
-
-export function formatPrice(cents?: number) {
+export function formatPrice(cents?: number | null) {
   if (typeof cents !== "number") return "";
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -52,7 +30,7 @@ export function formatPrice(cents?: number) {
   }).format(cents / 100);
 }
 
-export function startingPrice(sizes: { priceCents?: number }[]) {
+export function startingPrice(sizes: { priceCents?: number | null }[]) {
   const prices = sizes
     .map((size) => size.priceCents)
     .filter((cents): cents is number => typeof cents === "number");

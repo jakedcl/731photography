@@ -239,10 +239,10 @@ export function priceLookupSku(sizeSku: string) {
 
 type PricedStudioSize = {
   _key: string;
-  label?: string;
-  sku?: string;
-  priceCents?: number;
-  prodigiSku?: string;
+  label?: string | null;
+  sku?: string | null;
+  priceCents?: number | null;
+  prodigiSku?: string | null;
 };
 
 /** Catalog sizes for a shape, with prices from Studio (landscape aliases portrait rows). */

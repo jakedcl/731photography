@@ -79,7 +79,7 @@ export function PrintShop({ photo, sizes, canceled }: Props) {
             className="h-auto max-h-[min(85vh,920px)] w-full object-contain"
             sizes="(max-width: 767px) 100vw, (max-width: 1400px) 64vw, 900px"
             placeholder={blur ? "blur" : "empty"}
-            blurDataURL={blur}
+            blurDataURL={blur ?? undefined}
           />
         ) : (
           <div className="aspect-[4/5] w-full bg-stone-200/60" />

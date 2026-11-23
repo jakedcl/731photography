@@ -16,7 +16,6 @@ import {
   PHOTO_BY_SLUG_QUERY,
   PRINT_SIZES_QUERY,
 } from "@/sanity/lib/queries";
-import type { PhotoDetail, PrintSize } from "@/sanity/lib/types";
 
 export type PaidPrintOrder = {
   stripeSessionId: string;
@@ -71,10 +70,10 @@ export async function fulfillPrintOrder(
   }
 
   const [photo, sizesDoc] = await Promise.all([
-    client.fetch<PhotoDetail | null>(PHOTO_BY_SLUG_QUERY, {
+    client.fetch(PHOTO_BY_SLUG_QUERY, {
       slug: order.slug,
     }),
-    client.fetch<{ sizes?: PrintSize[] } | null>(PRINT_SIZES_QUERY),
+    client.fetch(PRINT_SIZES_QUERY),
   ]);
 
   if (!photo?.image?.asset) {

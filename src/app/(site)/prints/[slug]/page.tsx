@@ -14,12 +14,7 @@ import {
   PHOTOS_QUERY,
   PRINT_SIZES_QUERY,
 } from "@/sanity/lib/queries";
-import {
-  startingPrice,
-  type PhotoDetail,
-  type PhotoListItem,
-  type PrintSize,
-} from "@/sanity/lib/types";
+import { startingPrice } from "@/sanity/lib/types";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -30,9 +25,11 @@ export async function generateStaticParams() {
   try {
     const slugs = await client
       .withConfig({ useCdn: false })
-      .fetch<{ slug: string }[]>(PHOTO_SLUGS_QUERY);
+      .fetch(PHOTO_SLUGS_QUERY);
 
-    return (slugs || []).map((item) => ({ slug: item.slug }));
+    return (slugs || [])
+      .filter((item): item is { slug: string } => Boolean(item.slug))
+      .map((item) => ({ slug: item.slug }));
   } catch {
     return [];
   }
@@ -45,8 +42,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     params: { slug },
     stega: false,
   });
-  const photo = data as PhotoDetail | null;
-  if (!photo) notFound();
+  if (!data) notFound();
+  const photo = data;
 
   const title = photo.title || "Print";
   const description =
@@ -80,12 +77,11 @@ export default async function PrintDetailPage({ params, searchParams }: Props) {
       sanityFetch({ query: PHOTOS_QUERY, stega: false }),
     ]);
 
-  const photo = photoData as PhotoDetail | null;
-  if (!photo) notFound();
+  if (!photoData) notFound();
+  const photo = photoData;
 
-  const sizes = ((sizesData as { sizes?: PrintSize[] } | null)?.sizes ||
-    []) as PrintSize[];
-  const more = ((photosData || []) as PhotoListItem[])
+  const sizes = sizesData?.sizes ?? [];
+  const more = (photosData ?? [])
     .filter((item) => item.slug && item.slug !== slug)
     .slice(0, 6);
 

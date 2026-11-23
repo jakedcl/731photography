@@ -15,10 +15,9 @@ import {
 } from "@/sanity/lib/queries";
 import { defaultDescription, getSiteUrl, pageMetadata } from "@/lib/metadata";
 import {
+  emptySiteSettings,
   startingPrice,
   type PhotoListItem,
-  type PrintSize,
-  type SiteSettings,
 } from "@/sanity/lib/types";
 
 const homeTitle = "Thomas Lurker | 731photography";
@@ -29,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
     query: FEATURED_PHOTO_QUERY,
     stega: false,
   });
-  const featured = data as PhotoListItem | null;
+  const featured = data;
 
   const base = pageMetadata({
     path: "/",
@@ -89,20 +88,17 @@ export default async function HomePage() {
     sanityFetch({ query: PRINT_SIZES_QUERY }),
   ]);
 
-  const site = (settings || {}) as SiteSettings;
-  const featuredPhotos = (featuredList || []) as PhotoListItem[];
+  const site = settings ?? emptySiteSettings;
+  const featuredPhotos = featuredList ?? [];
   const heroPhotos =
     featuredPhotos.length > 0
       ? featuredPhotos
       : featuredFallback
-        ? [featuredFallback as PhotoListItem]
+        ? [featuredFallback]
         : [];
   const hero = heroPhotos[0] ?? null;
-  const allPhotos = (photos || []) as PhotoListItem[];
-  const preview = allPhotos.slice(0, 6);
-  const fromPrice = startingPrice(
-    ((sizesData as { sizes?: PrintSize[] } | null)?.sizes || []) as PrintSize[],
-  );
+  const preview = (photos ?? []).slice(0, 6);
+  const fromPrice = startingPrice(sizesData?.sizes ?? []);
 
   const siteUrl = getSiteUrl();
 
@@ -129,11 +125,14 @@ export default async function HomePage() {
       <main id="main">
       <section className="relative min-h-[100svh] overflow-hidden bg-stone-900 text-white">
         <HeroCarousel
-          photos={heroPhotos}
+          photos={heroPhotos as PhotoListItem[]}
           fallbackAlt={site.siteTitle || "Featured photograph"}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/35" />
-        <SiteHeader siteTitle={site.siteTitle} brandName={site.brandName} />
+        <SiteHeader
+          siteTitle={site.siteTitle ?? undefined}
+          brandName={site.brandName ?? undefined}
+        />
 
         <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-5 pb-16 pt-28 md:px-8 md:pb-20">
           <p className="animate-rise text-xs font-medium uppercase tracking-[0.28em] text-white/70">
@@ -188,12 +187,18 @@ export default async function HomePage() {
               View all
             </Link>
           </div>
-          <PhotoGrid photos={preview} fromPrice={fromPrice} />
+          <PhotoGrid
+            photos={preview as PhotoListItem[]}
+            fromPrice={fromPrice}
+          />
         </div>
       </section>
       </main>
 
-      <SiteFooter siteTitle={site.siteTitle} brandName={site.brandName} />
+      <SiteFooter
+        siteTitle={site.siteTitle ?? undefined}
+        brandName={site.brandName ?? undefined}
+      />
     </>
   );
 }

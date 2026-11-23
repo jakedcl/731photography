@@ -1,8 +1,7 @@
 import { SiteFooter, SiteHeaderSolid } from "@/components/SiteChrome";
 import { sanityFetch } from "@/sanity/lib/live";
 import { SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
-import type { SiteSettings } from "@/sanity/lib/types";
-
+import { emptySiteSettings } from "@/sanity/lib/types";
 export default async function SiteLayout({
   children,
 }: {
@@ -12,16 +11,19 @@ export default async function SiteLayout({
     query: SITE_SETTINGS_QUERY,
   });
 
-  const site = (settings || {}) as SiteSettings;
+  const site = settings ?? emptySiteSettings;
 
   return (
     <>
       <SiteHeaderSolid
-        siteTitle={site.siteTitle}
-        brandName={site.brandName}
+        siteTitle={site.siteTitle ?? undefined}
+        brandName={site.brandName ?? undefined}
       />
       <div className="flex flex-1 flex-col">{children}</div>
-      <SiteFooter siteTitle={site.siteTitle} brandName={site.brandName} />
+      <SiteFooter
+        siteTitle={site.siteTitle ?? undefined}
+        brandName={site.brandName ?? undefined}
+      />
     </>
   );
 }
